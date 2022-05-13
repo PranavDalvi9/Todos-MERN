@@ -25,4 +25,14 @@ router.get("", async (req, res) => {
     }
   });
 
+  router.patch("/:id", async (req, res) => {
+    try {
+      const data = await Todos.findByIdAndUpdate(req.params.id, req.body , {new:true}).lean().exec();
+      console.log(data)
+      return res.send(data)
+    } catch (error) {
+      return res.send(error);
+    }
+  });
+
 module.exports= router

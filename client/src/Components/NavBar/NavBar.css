@@ -1,5 +1,6 @@
 .NavBar{
-    border: 2px solid red;
+    /* border: 2px solid #FF5F00; */
+    background-color: #EEEEEE;
 }
 
 .NavBar>div{

@@ -10,6 +10,7 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 
 import Button from '@mui/material/Button';
+import axios from 'axios';
 
 export default function AddToDoForm() {
 
@@ -29,7 +30,9 @@ export default function AddToDoForm() {
       task
     }
     console.log("data" , data)
+    axios.post("http://localhost:2344/todos", data).then((res) => console.log(res.data))
   }
+  
 
   return (
     <div>

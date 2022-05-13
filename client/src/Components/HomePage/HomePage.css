@@ -1,5 +1,6 @@
 .HomePage{
     /* border: 2px solid red; */
+   
     width: 84%;
     margin: auto;
     margin-top: 5%;
@@ -16,9 +17,10 @@
     height: 500px;
 }
 
-.MainTodo>div>div{
-    border: 1px solid black;
-    margin-bottom: 10%;
+.TodoHeading{
+    border: 1px solid #00092C;
+    background-color: #CCF3EE;
+    margin-bottom: 5%;
 }
 
 .MainTodo>div>div>p{
@@ -28,15 +30,20 @@
 }
 
 .Card{
-    border: 2px solid red !important;
+    /* border: 2px solid #FF5F00 !important; */
+    background-color: #EEEEEE;
     width: 70%;
     height: 150px;
     padding-bottom: 5%;
     margin: auto;
+    margin-top: 5%;
 }
 
 .CardButton>button:nth-child(1){
     /* border: 2px solid green; */
+    background-color: #B20600;
+    border: transparent;
+    color: #EEEEEE;
     font-weight: bold;
     margin-right: 5%;
     padding: 3%;
@@ -45,7 +52,26 @@
 
 .CardButton>button:nth-child(2){
     /* border: 2px solid blue; */
+    background-color: #B20600;
+    border: transparent;
+    color: #EEEEEE;
     font-weight: bold;
     padding: 3%;
     width: 60px;
+}
+
+.cardstatus{
+    /* border: 2px solid blue; */
+    text-align: end;
+    margin-right: 3%;
+    /* margin: 0px !important; */
+    
+}
+.cardstatus>p{
+    width: auto;
+    /* border: 2px solid blue; */
+    margin: 0px ;
+    padding-top: 2%;
+    color: #00092C;
+    font-weight: bold;
 }

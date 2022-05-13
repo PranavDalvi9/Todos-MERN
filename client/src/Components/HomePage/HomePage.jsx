@@ -1,12 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./HomePage.css"
-import axios fom "axios"
+import axios from 'axios'
 
 export default function HomePage() {
 
+  const [data, setData] = useState([])
+
   useEffect(() => {
-      axios.get("localhost:2344/todos")
-  },[])
+    axios.get("http://localhost:2344/todos").then((res) => setData(res.data));
+  }, [])
+
+  var toDo_Data = data.filter((items) => items.task === "To Do")
+
+  var doing_data = data.filter((items) => items.task === "Doing")
+
+  var done_data = data.filter((items) => items.task === "Done")
+
+  console.log("done", done_data)
+  console.log("todo", doing_data)
+  console.log("todo", toDo_Data)
+  // console.log("datata" , data)
 
   return (
     <div className='HomePage'>
@@ -15,46 +28,85 @@ export default function HomePage() {
 
         {/* Todo div start */}
         <div>
-          <div><p>To DO</p></div>
+          <div className='TodoHeading'><p>To DO</p></div>
 
-          <div className='Card'>
-            <div className='CardTitle'><p>Title</p></div>
-            <div className='CardDescription'><p>Description: temporibus officia rem tempore officiis.</p></div>
-            <div className='CardButton'>
-              <button>Doing</button>
-              <button>Done</button>
-            </div>
-          </div>
+          {
+            toDo_Data ?
+              <div>
+                {
+                  toDo_Data.map((e) => (
+                    <div className='Card'>
+                      <div className='cardstatus'><p>{e.task}</p></div>
+                      <div className='CardTitle'><p>{e.title}</p></div>
+                      <div className='CardDescription'><p>{e.description}</p></div>
+                      <div className='CardButton'>
+                        <button onClick={handleDoing}>Doing</button>
+                        <button>Done</button>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div> :
+
+              <h1>no</h1>
+          }
+
 
         </div>
 
         {/* Doing div start */}
         <div>
-          <div><p>Doing</p></div>
+          <div className='TodoHeading'><p>Doing</p></div>
 
-          <div className='Card'>
-            <div className='CardTitle'><p>Title</p></div>
-            <div className='CardDescription'><p>Description: temporibus officia rem tempore officiis.</p></div>
-            <div className='CardButton'>
-              {/* <button>Doing</button> */}
-              <button>Done</button>
-            </div>
-          </div>
+          {
+            doing_data ?
+              <div>
+                {
+                  doing_data.map((e) => (
+                    <div className='Card'>
+                      <div className='cardstatus'><p>{e.task}</p></div>
+                      <div className='CardTitle'><p>{e.title}</p></div>
+                      <div className='CardDescription'><p>{e.description}</p></div>
+                      <div className='CardButton'>
+                        {/* <button>Doing</button> */}
+                        <button>Done</button>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div> :
+              <h1>no</h1>
+          }
+
+
 
         </div>
 
         {/* Done div start */}
         <div>
-          <div><p>Done</p></div>
+          <div className='TodoHeading'><p>Done</p></div>
 
-          <div className='Card'>
-            <div className='CardTitle'><p>Title</p></div>
-            <div className='CardDescription'><p>Description: temporibus officia rem tempore officiis.</p></div>
-            {/* <div className='CardButton'>
+          {
+            done_data ?
+              <div>
+                {
+                  done_data.map((e) => (
+                    <div className='Card'>
+                      <div className='cardstatus'><p>{e.task}</p></div>
+                      <div className='CardTitle'><p>{e.title}</p></div>
+                      <div className='CardDescription'><p>{e.description}</p></div>
+                      {/* <div className='CardButton'>
               <button>Doing</button>
               <button>Done</button>
             </div> */}
-          </div>
+                    </div>
+                  ))
+                }
+              </div> :
+              <h1>no</h1>
+          }
+
+
 
         </div>
       </div>
