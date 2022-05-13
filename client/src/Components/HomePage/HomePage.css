@@ -1,7 +1,8 @@
 .HomePage{
     /* border: 2px solid red; */
-    width: 86%;
+    width: 84%;
     margin: auto;
+    margin-top: 5%;
 }
 
 .MainTodo{
@@ -17,6 +18,7 @@
 
 .MainTodo>div>div{
     border: 1px solid black;
+    margin-bottom: 10%;
 }
 
 .MainTodo>div>div>p{
