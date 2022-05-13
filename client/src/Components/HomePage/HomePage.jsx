@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./HomePage.css"
+import axios fom "axios"
 
 export default function HomePage() {
+
+  useEffect(() => {
+      axios.get("localhost:2344/todos")
+  },[])
+
   return (
     <div className='HomePage'>
-
 
       <div className='MainTodo' >
 

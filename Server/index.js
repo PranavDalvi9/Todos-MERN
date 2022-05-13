@@ -11,9 +11,9 @@ const mongoose = require("mongoose");
 app.use(cors());
 
 // const flightController = require("./src/controllers/flightController")
-
+const todosApi = require("./Src/Controllers/TodosController")
 // const airportController = require("./src/controllers/airportController")
- 
+ app.use("/todos" , todosApi)
 // app.use("/flight", flightController)
 // app.use("/airport", airportController)
 
