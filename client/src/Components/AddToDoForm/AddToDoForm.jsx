@@ -1,10 +1,79 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./AddToDoForm.css"
 
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+
+import Button from '@mui/material/Button';
+
 export default function AddToDoForm() {
+
+  const [title , setTitle] = useState("")
+  const [description , setDescription] = useState("")
+  const [task, setTask] = useState("");
+  
+
+  const handleChange = (event) => {
+    setTask(event.target.value);
+  };
+
+  const handleAddcard = () => {
+    const data = {
+      title,
+      description,
+      task
+    }
+    console.log("data" , data)
+  }
+
   return (
     <div>
-      <h1>addd</h1>
+      <h2>Add New Card</h2>
+
+      <div>
+
+        <Box
+          component="form"
+          sx={{
+            '& > :not(style)': { m: 1, width: '55ch' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          {/* Title Input */}
+          <TextField id="standard-basic" label="Title" variant="standard" onChange={(e)=> setTitle(e.target.value)}/><br />
+
+          {/* Description Input */}
+          <TextField id="standard-basic" label="Description" variant="standard" onChange={(e)=> setDescription(e.target.value)} /><br />
+
+          {/* Task Status Input */}
+          <FormControl >
+            <InputLabel id="demo-simple-select-label">Task</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={task}
+              label="Task"
+              onChange={handleChange}
+              defaultValue={task}
+            >
+              <MenuItem value={"To Do"}>To Do</MenuItem>
+              <MenuItem value={"Doing"}>Doing</MenuItem>
+              <MenuItem value={"Done"}>Done</MenuItem>
+            </Select>
+          </FormControl> <br /><br />
+
+          {/* Add Card Button */}
+          <Button variant="contained" onClick={handleAddcard} >Add Card</Button>
+
+        </Box>
+
+      </div>
     </div>
   )
 }
