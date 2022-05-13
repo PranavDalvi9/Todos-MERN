@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import "./HomePage.css"
 import axios from 'axios'
+import {useNavigate} from "react-router-dom"
 
 export default function HomePage() {
-
+  const navigate = useNavigate()
   const [toDoData, setToDoData] = useState([])
   const [doingdata, setDoingdata] = useState([])
   const [donedata, setDonedata] = useState([])
@@ -31,6 +32,17 @@ export default function HomePage() {
     })
   }
 
+  const handleTODo = (e) => {
+    axios.patch(`http://localhost:2344/todos/${e.target.value}`, {
+      "task": "To Do"
+    })
+  } 
+
+  const handleEdit = (e) => {
+    // console.log(e.target.value)
+    navigate(`/edit/${e.target.value}`)
+  } 
+
   return (
     <div className='HomePage'>
 
@@ -53,6 +65,7 @@ export default function HomePage() {
                         <button value={e._id} onClick={handleDoing}>Doing</button>
                         <button value={e._id} onClick={handleDone}>Done</button>
                       </div>
+                      <div className='EditButton'><button value={e._id} onClick={handleEdit}>Edit</button></div>
                     </div>
                   ))
                 }
@@ -79,8 +92,10 @@ export default function HomePage() {
                       <div className='CardDescription'><p>{e.description}</p></div>
                       <div className='CardButton'>
                         {/* <button>Doing</button> */}
+                        <button value={e._id} onClick={handleTODo}>To Do</button>
                         <button value={e._id} onClick={handleDone}>Done</button>
                       </div>
+                      <div className='EditButton' ><button value={e._id} onClick={handleEdit}>Edit</button></div>
                     </div>
                   ))
                 }
@@ -105,10 +120,11 @@ export default function HomePage() {
                       <div className='cardstatus'><p>{e.task}</p></div>
                       <div className='CardTitle'><p>{e.title}</p></div>
                       <div className='CardDescription'><p>{e.description}</p></div>
-                      {/* <div className='CardButton'>
-              <button>Doing</button>
-              <button>Done</button>
-            </div> */}
+                      <div className='CardButton'>
+              <button value={e._id} onClick={handleTODo}>To Do</button>
+              <button value={e._id} onClick={handleDoing}>Doing</button>
+            </div>
+             <div className='EditButton'><button value={e._id} onClick={handleEdit}>Edit</button></div>
                     </div>
                   ))
                 }

@@ -10,7 +10,7 @@ export default function Routing() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/edit_todo" element={<EditToDoForm />} />
+        <Route path="/edit/:id" element={<EditToDoForm />} />
         <Route path="/add_todo" element={<AddToDoForm />} />
 
       </Routes>
