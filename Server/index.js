@@ -1,6 +1,5 @@
-
 const express = require("express");
-const connect = require("./src/configs/db")
+const connect = require("./src/configs/db");
 let port = process.env.PORT || 2344;
 const cors = require("cors");
 const app = express();
@@ -10,15 +9,9 @@ const mongoose = require("mongoose");
 
 app.use(cors());
 
-// const flightController = require("./src/controllers/flightController")
-const todosApi = require("./Src/Controllers/TodosController")
-// const airportController = require("./src/controllers/airportController")
- app.use("/todos" , todosApi)
-// app.use("/flight", flightController)
-// app.use("/airport", airportController)
+const todosApi = require("./Src/Controllers/TodosController");
 
-
-
+app.use("/todos", todosApi);
 
 app.listen(port, async () => {
   try {
@@ -26,5 +19,5 @@ app.listen(port, async () => {
   } catch (err) {
     console.error(err.message);
   }
-  console.log("listening on port 2345");
+  console.log("listening on port 2344");
 });

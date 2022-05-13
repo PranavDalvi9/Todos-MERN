@@ -52,6 +52,7 @@ const navigate = useNavigate()
     }  
   }
 
+
   const handleDeleteCard = () => {
     console.log("deke")
     axios.delete(`http://localhost:2344/todos/${id}`).then((res) => alert("Card Deleted Successfully")).then(() => navigate("/"))

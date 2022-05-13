@@ -17,10 +17,10 @@ export default function AddToDoForm() {
 
   const navigate = useNavigate()
 
-  const [title , setTitle] = useState("")
-  const [description , setDescription] = useState("")
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
   const [task, setTask] = useState("");
-  
+
 
   const handleChange = (event) => {
     setTask(event.target.value);
@@ -32,10 +32,17 @@ export default function AddToDoForm() {
       description,
       task
     }
-    console.log("data" , data)
-    axios.post("http://localhost:2344/todos", data).then((res) => console.log(res.data)).then(() => navigate("/"))
+
+    if (description.length < 50) {
+      console.log("data", data)
+      axios.post("http://localhost:2344/todos", data).then((res) => console.log(res.data)).then(() => navigate("/"))
+    }
+    else {
+      alert("Reduce the length od Description")
+    }
+
   }
-  
+
 
   return (
     <div>
@@ -52,10 +59,15 @@ export default function AddToDoForm() {
           autoComplete="off"
         >
           {/* Title Input */}
-          <TextField id="standard-basic" label="Title" variant="standard" onChange={(e)=> setTitle(e.target.value)}/><br />
+          <TextField id="standard-basic" label="Title" variant="standard" onChange={(e) => setTitle(e.target.value)} /><br />
 
           {/* Description Input */}
-          <TextField id="standard-basic" label="Description" variant="standard" onChange={(e)=> setDescription(e.target.value)} /><br />
+          <TextField id="standard-basic" label="Description" variant="standard" onChange={(e) => {
+            setDescription(e.target.value)
+            if (description.length > 50) {
+              alert("Description Exceed")
+            }
+          }} /><br />
 
           {/* Task Status Input */}
           <FormControl >
@@ -75,7 +87,7 @@ export default function AddToDoForm() {
           </FormControl> <br /><br />
 
           {/* Add Card Button */}
-          <Button disabled ={!title || !description || !task} variant="contained" onClick={handleAddcard} >Add Card</Button>
+          <Button disabled={!title || !description || !task} variant="contained" onClick={handleAddcard} >Add Card</Button>
 
         </Box>
 

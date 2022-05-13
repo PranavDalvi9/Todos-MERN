@@ -60,11 +60,19 @@
     width: 60px;
 }
 
+.cardTopDelete{
+/* border: 2px solid palevioletred; */
+display: flex;
+}
+
 .cardstatus{
     /* border: 2px solid blue; */
-    text-align: end;
-    margin-right: 3%;
+    /* text-align: end; */
+    /* margin-right: 3%; */
     /* margin: 0px !important; */
+    margin-left: 43%;
+    padding-top: 5%;
+    
     
 }
 .cardstatus>p{
@@ -75,6 +83,16 @@
     color: #00092C;
     font-weight: bold;
 }
+.Delete{
+    /* border: 2px solid blue; */
+    margin-left: 25%;
+    padding-top: 3%;
+}
+.Delete>:hover{
+    color: red;
+    cursor: pointer;
+}
+
 
 .EditButton{
     /* border: 2px solid blue; */
