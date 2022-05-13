@@ -4,22 +4,32 @@ import axios from 'axios'
 
 export default function HomePage() {
 
-  const [data, setData] = useState([])
+  const [toDoData, setToDoData] = useState([])
+  const [doingdata, setDoingdata] = useState([])
+  const [donedata, setDonedata] = useState([])
 
   useEffect(() => {
-    axios.get("http://localhost:2344/todos").then((res) => setData(res.data));
+
+    axios.get("http://localhost:2344/todos/Done").then((res) => setDonedata(res.data));
+
+    axios.get("http://localhost:2344/todos/To_Do").then((res) => setToDoData(res.data));
+
+    axios.get("http://localhost:2344/todos/Doing").then((res) => setDoingdata(res.data));
+
   }, [])
 
-  var toDo_Data = data.filter((items) => items.task === "To Do")
+  const handleDoing = (e) => {
+    axios.patch(`http://localhost:2344/todos/${e.target.value}`, {
+      "task": "Doing"
+    })
 
-  var doing_data = data.filter((items) => items.task === "Doing")
+  }
 
-  var done_data = data.filter((items) => items.task === "Done")
-
-  console.log("done", done_data)
-  console.log("todo", doing_data)
-  console.log("todo", toDo_Data)
-  // console.log("datata" , data)
+  const handleDone = (e) => {
+    axios.patch(`http://localhost:2344/todos/${e.target.value}`, {
+      "task": "Done"
+    })
+  }
 
   return (
     <div className='HomePage'>
@@ -31,24 +41,24 @@ export default function HomePage() {
           <div className='TodoHeading'><p>To DO</p></div>
 
           {
-            toDo_Data ?
+            toDoData.length !== 0 ?
               <div>
                 {
-                  toDo_Data.map((e) => (
+                  toDoData.map((e) => (
                     <div className='Card'>
                       <div className='cardstatus'><p>{e.task}</p></div>
                       <div className='CardTitle'><p>{e.title}</p></div>
                       <div className='CardDescription'><p>{e.description}</p></div>
                       <div className='CardButton'>
-                        <button onClick={handleDoing}>Doing</button>
-                        <button>Done</button>
+                        <button value={e._id} onClick={handleDoing}>Doing</button>
+                        <button value={e._id} onClick={handleDone}>Done</button>
                       </div>
                     </div>
                   ))
                 }
               </div> :
 
-              <h1>no</h1>
+              <h1>No Data Found</h1>
           }
 
 
@@ -59,23 +69,23 @@ export default function HomePage() {
           <div className='TodoHeading'><p>Doing</p></div>
 
           {
-            doing_data ?
+            doingdata.length !== 0 ?
               <div>
                 {
-                  doing_data.map((e) => (
+                  doingdata.map((e) => (
                     <div className='Card'>
                       <div className='cardstatus'><p>{e.task}</p></div>
                       <div className='CardTitle'><p>{e.title}</p></div>
                       <div className='CardDescription'><p>{e.description}</p></div>
                       <div className='CardButton'>
                         {/* <button>Doing</button> */}
-                        <button>Done</button>
+                        <button value={e._id} onClick={handleDone}>Done</button>
                       </div>
                     </div>
                   ))
                 }
               </div> :
-              <h1>no</h1>
+              <h1>No Data Found</h1>
           }
 
 
@@ -87,10 +97,10 @@ export default function HomePage() {
           <div className='TodoHeading'><p>Done</p></div>
 
           {
-            done_data ?
+            donedata.length !== 0 ?
               <div>
                 {
-                  done_data.map((e) => (
+                  donedata.map((e) => (
                     <div className='Card'>
                       <div className='cardstatus'><p>{e.task}</p></div>
                       <div className='CardTitle'><p>{e.title}</p></div>
@@ -103,7 +113,7 @@ export default function HomePage() {
                   ))
                 }
               </div> :
-              <h1>no</h1>
+              <h1>No Data Found</h1>
           }
 
 

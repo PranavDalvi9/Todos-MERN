@@ -25,6 +25,39 @@ router.get("", async (req, res) => {
     }
   });
 
+  router.get("/To_Do", async (req, res) => {
+    const query = {task : "To Do"}
+    try {
+      const data = await Todos.find(query).lean().exec();
+      console.log(data)
+      return res.send(data)
+    } catch (error) {
+      return res.send(error);
+    }
+  });
+
+  router.get("/Doing", async (req, res) => {
+    const query = {task : "Doing"}
+    try {
+      const data = await Todos.find(query).lean().exec();
+      console.log(data)
+      return res.send(data)
+    } catch (error) {
+      return res.send(error);
+    }
+  });
+  router.get("/Done", async (req, res) => {
+    const query = {task : "Done"}
+    try {
+      const data = await Todos.find(query).lean().exec();
+      console.log(data)
+      return res.send(data)
+    } catch (error) {
+      return res.send(error);
+    }
+  });
+
+
   router.patch("/:id", async (req, res) => {
     try {
       const data = await Todos.findByIdAndUpdate(req.params.id, req.body , {new:true}).lean().exec();
