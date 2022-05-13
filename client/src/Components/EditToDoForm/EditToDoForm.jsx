@@ -1,37 +1,30 @@
 import React, { useEffect, useState } from 'react'
-
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import "./EditToDoForm.css"
-
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
-
 import Button from '@mui/material/Button';
 import axios from 'axios';
 
 export default function EditToDoForm() {
-  const { id } = useParams()
-const navigate = useNavigate()
-  const [data, setData] = useState([])
 
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const [data, setData] = useState([])
   const [title, setTitle] = useState("react default")
   const [description, setDescription] = useState("Description")
   const [task, setTask] = useState("To Do");
 
   const getDataFromParam = () => {
-    axios.get(`http://localhost:2344/todos/id/${id}`).then((res) => { setData(res.data); setTitle(res.data.title); setDescription(res.data.description); setTask(res.data.task) })
+    axios.get(`https://todosdatabase.herokuapp.com/todos/id/${id}`).then((res) => { setData(res.data); setTitle(res.data.title); setDescription(res.data.description); setTask(res.data.task) })
   }
   useEffect(() => {
     getDataFromParam()
   }, [])
-
-  // console.log(title)
-
 
   const handleChange = (event) => {
     setTask(event.target.value);
@@ -43,19 +36,18 @@ const navigate = useNavigate()
       description,
       task
     }
-    if(description.length < 50){
-      console.log("data", data,id)
-      axios.patch(`http://localhost:2344/todos/${id}`, data).then((res) => console.log(res.data)).then(() => navigate("/"))
+    if (description.length < 50) {
+      console.log("data", data, id)
+      axios.patch(`https://todosdatabase.herokuapp.com/todos/${id}`, data).then((res) => console.log(res.data)).then(() => navigate("/"))
     }
-    else{
+    else {
       alert("Reduce the length od Description")
-    }  
+    }
   }
-
 
   const handleDeleteCard = () => {
     console.log("deke")
-    axios.delete(`http://localhost:2344/todos/${id}`).then((res) => alert("Card Deleted Successfully")).then(() => navigate("/"))
+    axios.delete(`https://todosdatabase.herokuapp.com/todos/${id}`).then((res) => alert("Card Deleted Successfully")).then(() => navigate("/"))
 
   }
 
@@ -79,10 +71,10 @@ const navigate = useNavigate()
           {/* Description Input */}
           <TextField id="standard-basic" label="Description" value={description} variant="standard" onChange={(e) => {
             setDescription(e.target.value);
-            if(description.length >50){
+            if (description.length > 50) {
               alert("Description Exceed")
             }
-             }} /><br />
+          }} /><br />
 
           {/* Task Status Input */}
           <FormControl >
@@ -104,7 +96,6 @@ const navigate = useNavigate()
           {/* Add Card Button */}
           <Button variant="contained" onClick={handleUpdatecard} >Update Card</Button><br />
           <Button variant="contained" onClick={handleDeleteCard} >Delete Card</Button>
-
 
         </Box>
 

@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
 import "./AddToDoForm.css"
-
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
-
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -16,11 +13,9 @@ import { useNavigate } from 'react-router-dom';
 export default function AddToDoForm() {
 
   const navigate = useNavigate()
-
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [task, setTask] = useState("");
-
 
   const handleChange = (event) => {
     setTask(event.target.value);
@@ -35,14 +30,13 @@ export default function AddToDoForm() {
 
     if (description.length < 50) {
       console.log("data", data)
-      axios.post("http://localhost:2344/todos", data).then((res) => console.log(res.data)).then(() => navigate("/"))
+      axios.post("https://todosdatabase.herokuapp.com/todos", data).then((res) => console.log(res.data)).then(() => navigate("/"))
     }
     else {
       alert("Reduce the length od Description")
     }
 
   }
-
 
   return (
     <div>

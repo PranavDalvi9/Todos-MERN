@@ -1,21 +1,19 @@
 const express = require("express");
-const connect = require("./src/configs/db");
-let port = process.env.PORT || 2344;
 const cors = require("cors");
+const connect = require("./Src/Configs/db.js");
+
 const app = express();
 app.use(express.json());
 
-const mongoose = require("mongoose");
-
-
+let port = process.env.PORT || 2344;
+// const mongoose = require("mongoose");
+const todosApi = require("./Src/Controllers/TodosController");
 
 app.use(cors());
 
-const todosApi = require("./Src/Controllers/TodosController");
-
 app.use("/todos", todosApi);
 
-app.listen(port, async () => {
+app.listen(port, async (req, res) => {
   try {
     await connect();
   } catch (err) {

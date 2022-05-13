@@ -10,57 +10,45 @@ export default function HomePage() {
   const [donedata, setDonedata] = useState([])
 
   useEffect(() => {
-
-    // axios.get("http://localhost:2344/todos/Done").then((res) => setDonedata(res.data));
-
-    // axios.get("http://localhost:2344/todos/To_Do").then((res) => setToDoData(res.data));
-
-    // axios.get("http://localhost:2344/todos/Doing").then((res) => setDoingdata(res.data));
     dataDone();
     dataTodo();
     dataDoing();
   }, [])
 
   const dataDone = () => {
-    axios.get("http://localhost:2344/todos/Done").then((res) => setDonedata(res.data));
+    axios.get("https://todosdatabase.herokuapp.com/todos/Done").then((res) => setDonedata(res.data));
   }
   const dataTodo = () => {
-    axios.get("http://localhost:2344/todos/To_Do").then((res) => setToDoData(res.data));
+    axios.get("https://todosdatabase.herokuapp.com/todos/To_Do").then((res) => setToDoData(res.data));
   }
   const dataDoing = () => {
-    axios.get("http://localhost:2344/todos/Doing").then((res) => setDoingdata(res.data));
-
+    axios.get("https://todosdatabase.herokuapp.com/todos/Doing").then((res) => setDoingdata(res.data));
   }
 
   const handleDoing = (e) => {
-    axios.patch(`http://localhost:2344/todos/${e.target.value}`, {
+    axios.patch(`https://todosdatabase.herokuapp.com/todos/${e.target.value}`, {
       "task": "Doing"
     }).then(() => { dataDoing(); dataDone(); dataTodo() })
-
   }
 
   const handleDone = (e) => {
-    axios.patch(`http://localhost:2344/todos/${e.target.value}`, {
+    axios.patch(`https://todosdatabase.herokuapp.com/todos/${e.target.value}`, {
       "task": "Done"
     }).then(() => { dataDoing(); dataDone(); dataTodo() })
-
   }
 
   const handleTODo = (e) => {
-    axios.patch(`http://localhost:2344/todos/${e.target.value}`, {
+    axios.patch(`https://todosdatabase.herokuapp.com/todos/${e.target.value}`, {
       "task": "To Do"
     }).then(() => { dataDoing(); dataDone(); dataTodo() })
-
   }
 
   const handleEdit = (e) => {
-    // console.log(e.target.value)
     navigate(`/edit/${e.target.value}`)
   }
 
   const handleDeleteCard = (a) => {
-    // console.log("deke", a)
-    axios.delete(`http://localhost:2344/todos/${a}`).then((res) => alert("Card Deleted Successfully")).then(() => { dataDoing(); dataDone(); dataTodo() })
+    axios.delete(`https://todosdatabase.herokuapp.com/todos/${a}`).then((res) => alert("Card Deleted Successfully")).then(() => { dataDoing(); dataDone(); dataTodo() })
 
   }
 
@@ -71,7 +59,7 @@ export default function HomePage() {
 
         {/* Todo div start */}
         <div>
-          <div className='TodoHeading'><p>To DO</p></div>
+          <div className='TodoHeading'><p>To-Do</p></div>
 
           {
             toDoData.length !== 0 ?
@@ -87,7 +75,7 @@ export default function HomePage() {
                           <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
                         </svg></div>
                       </div>
-                      
+
                       <div className='CardTitle'><p>{e.title}</p></div>
                       <div className='CardDescription'><p>{e.description}</p></div>
                       <div className='CardButton'>
@@ -116,7 +104,7 @@ export default function HomePage() {
                 {
                   doingdata.map((e) => (
                     <div className='Card' key={e._id}>
-                      
+
                       <div className='cardTopDelete'>
                         <div className='cardstatus'><p>{e.task}</p></div>
                         <div className='Delete' value={e._id} onClick={(a) => handleDeleteCard(e._id)}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -124,7 +112,7 @@ export default function HomePage() {
                           <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
                         </svg></div>
                       </div>
-                      
+
                       <div className='CardTitle'><p>{e.title}</p></div>
                       <div className='CardDescription'><p>{e.description}</p></div>
                       <div className='CardButton'>
@@ -154,7 +142,7 @@ export default function HomePage() {
                 {
                   donedata.map((e) => (
                     <div className='Card' key={e._id}>
-                      
+
                       <div className='cardTopDelete'>
                         <div className='cardstatus'><p>{e.task}</p></div>
                         <div className='Delete' value={e._id} onClick={(a) => handleDeleteCard(e._id)} ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -176,8 +164,6 @@ export default function HomePage() {
               </div> :
               <h1>No Data Found</h1>
           }
-
-
 
         </div>
       </div>
