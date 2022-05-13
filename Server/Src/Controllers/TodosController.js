@@ -46,6 +46,7 @@ router.get("", async (req, res) => {
       return res.send(error);
     }
   });
+
   router.get("/Done", async (req, res) => {
     const query = {task : "Done"}
     try {
@@ -57,10 +58,32 @@ router.get("", async (req, res) => {
     }
   });
 
+  router.get("/id/:id", async (req, res) => {
+    console.log(req.params.id)
+    // const query = {_id : req.query.params}
+    try {
+      const data = await Todos.findById(req.params.id).lean().exec();
+      console.log(data)
+      return res.send(data)
+    } catch (error) {
+      return res.send(error);
+    }
+  });
+
 
   router.patch("/:id", async (req, res) => {
     try {
       const data = await Todos.findByIdAndUpdate(req.params.id, req.body , {new:true}).lean().exec();
+      console.log(data)
+      return res.send(data)
+    } catch (error) {
+      return res.send(error);
+    }
+  });
+
+  router.delete("/:id", async (req, res) => {
+    try {
+      const data = await Todos.findByIdAndDelete(req.params.id).lean().exec();
       console.log(data)
       return res.send(data)
     } catch (error) {

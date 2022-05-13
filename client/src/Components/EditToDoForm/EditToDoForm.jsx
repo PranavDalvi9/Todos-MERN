@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import "./EditToDoForm.css"
 
 import Box from '@mui/material/Box';
@@ -16,28 +16,47 @@ import axios from 'axios';
 
 export default function EditToDoForm() {
   const { id } = useParams()
-  console.log(id)
+const navigate = useNavigate()
+  const [data, setData] = useState([])
 
-
-  const [title, setTitle] = useState("Title")
+  const [title, setTitle] = useState("react default")
   const [description, setDescription] = useState("Description")
   const [task, setTask] = useState("To Do");
+
+  const getDataFromParam = () => {
+    axios.get(`http://localhost:2344/todos/id/${id}`).then((res) => { setData(res.data); setTitle(res.data.title); setDescription(res.data.description); setTask(res.data.task) })
+  }
+  useEffect(() => {
+    getDataFromParam()
+  }, [])
+
+  // console.log(title)
 
 
   const handleChange = (event) => {
     setTask(event.target.value);
   };
 
-  const handleAddcard = () => {
+  const handleUpdatecard = () => {
     const data = {
       title,
       description,
       task
     }
-    console.log("data", data)
-    axios.post("http://localhost:2344/todos", data).then((res) => console.log(res.data))
+    if(description.length < 50){
+      console.log("data", data,id)
+      axios.patch(`http://localhost:2344/todos/${id}`, data).then((res) => console.log(res.data)).then(() => navigate("/"))
+    }
+    else{
+      alert("Reduce the length od Description")
+    }  
   }
 
+  const handleDeleteCard = () => {
+    console.log("deke")
+    axios.delete(`http://localhost:2344/todos/${id}`).then((res) => alert("Card Deleted Successfully")).then(() => navigate("/"))
+
+  }
 
   return (
     <div>
@@ -54,10 +73,15 @@ export default function EditToDoForm() {
           autoComplete="off"
         >
           {/* Title Input */}
-          <TextField id="standard-basic" label={title} variant="standard" onChange={(e) => setTitle(e.target.value)} /><br />
+          <TextField id="standard-basic" label="Name" value={title} variant="standard" onChange={(e) => setTitle(e.target.value)} /><br />
 
           {/* Description Input */}
-          <TextField id="standard-basic" label={description} variant="standard" onChange={(e) => setDescription(e.target.value)} /><br />
+          <TextField id="standard-basic" label="Description" value={description} variant="standard" onChange={(e) => {
+            setDescription(e.target.value);
+            if(description.length >50){
+              alert("Description Exceed")
+            }
+             }} /><br />
 
           {/* Task Status Input */}
           <FormControl >
@@ -77,7 +101,9 @@ export default function EditToDoForm() {
           </FormControl> <br /><br />
 
           {/* Add Card Button */}
-          <Button variant="contained" onClick={handleAddcard} >Add Card</Button>
+          <Button variant="contained" onClick={handleUpdatecard} >Update Card</Button><br />
+          <Button variant="contained" onClick={handleDeleteCard} >Delete Card</Button>
+
 
         </Box>
 

@@ -11,8 +11,11 @@ import InputLabel from '@mui/material/InputLabel';
 
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddToDoForm() {
+
+  const navigate = useNavigate()
 
   const [title , setTitle] = useState("")
   const [description , setDescription] = useState("")
@@ -30,7 +33,7 @@ export default function AddToDoForm() {
       task
     }
     console.log("data" , data)
-    axios.post("http://localhost:2344/todos", data).then((res) => console.log(res.data))
+    axios.post("http://localhost:2344/todos", data).then((res) => console.log(res.data)).then(() => navigate("/"))
   }
   
 
@@ -72,7 +75,7 @@ export default function AddToDoForm() {
           </FormControl> <br /><br />
 
           {/* Add Card Button */}
-          <Button variant="contained" onClick={handleAddcard} >Add Card</Button>
+          <Button disabled ={!title || !description || !task} variant="contained" onClick={handleAddcard} >Add Card</Button>
 
         </Box>
 
