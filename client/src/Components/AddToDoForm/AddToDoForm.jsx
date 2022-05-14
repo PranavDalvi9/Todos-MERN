@@ -34,7 +34,7 @@ export default function AddToDoForm() {
     }
     else {
       console.log("length kkk",description.length)
-      alert("Reduce the length of Description")
+      alert("Description is to short")
     }
 
   }
