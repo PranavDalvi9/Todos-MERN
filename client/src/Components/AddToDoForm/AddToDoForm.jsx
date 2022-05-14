@@ -28,12 +28,13 @@ export default function AddToDoForm() {
       task
     }
 
-    if (description.length < 50) {
+    if (description.length  >= 25) {
       console.log("data", data)
       axios.post("https://todosdatabase.herokuapp.com/todos", data).then((res) => console.log(res.data)).then(() => navigate("/"))
     }
     else {
-      alert("Reduce the length od Description")
+      console.log("length kkk",description.length)
+      alert("Reduce the length of Description")
     }
 
   }
@@ -58,9 +59,6 @@ export default function AddToDoForm() {
           {/* Description Input */}
           <TextField id="standard-basic" label="Description" variant="standard" onChange={(e) => {
             setDescription(e.target.value)
-            if (description.length > 50) {
-              alert("Description Exceed")
-            }
           }} /><br />
 
           {/* Task Status Input */}

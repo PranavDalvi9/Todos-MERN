@@ -36,12 +36,12 @@ export default function EditToDoForm() {
       description,
       task
     }
-    if (description.length < 50) {
+    if (description.length  >= 25) {
       console.log("data", data, id)
       axios.patch(`https://todosdatabase.herokuapp.com/todos/${id}`, data).then((res) => console.log(res.data)).then(() => navigate("/"))
     }
     else {
-      alert("Reduce the length od Description")
+      alert("Description is to short")
     }
   }
 
@@ -71,9 +71,6 @@ export default function EditToDoForm() {
           {/* Description Input */}
           <TextField id="standard-basic" label="Description" value={description} variant="standard" onChange={(e) => {
             setDescription(e.target.value);
-            if (description.length > 50) {
-              alert("Description Exceed")
-            }
           }} /><br />
 
           {/* Task Status Input */}
